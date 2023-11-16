@@ -11,15 +11,40 @@
     </head>
     <body>
         <h1>Caye's Blog</h1>
-        <div id="count">
-            {{ template "count" . }}
-        </div>
-        <button hx-target="#count" hx-post="/count">Count</button>
+        {{ template "contact-form" . }}
+        <hr />
+        {{ template "contact-display" . }}
     </body>
 </html>
-
 {{ end }}
 
-{{ block "count" . }}
-    Count {{ .Count }}
+{{ block "contact-form" . }}
+<form hx-swap="outerHTML" hx-post="/add-contact">
+    Name: <input type="text" name="name" placeholder="Name">
+    Email: <input type="email" name="email" placeholder="Email">
+    <button type="submit">Create</button>
+</form>
 {{ end }}
+
+{{ block "contact-display" . }}
+    <div id="contact-display" style="display: flex; flex-direction: column">
+        {{ range .Contacts }}
+            {{ template "contact-item" . }}
+        {{ end }}
+    </div>
+{{ end }}
+
+{{ block "contact-item" . }}
+    <div>
+        Name: <span>{{ .Name }}</span>
+        Email: <span>{{ .Email }}</span>
+    </div>
+{{ end }}
+
+{{ block "oob-contact-item" . }}
+    <div id="contact-display" hx-swap-oob="afterbegin">
+        {{ template "contact-item" . }}
+    </div>
+{{ end }}
+
+
