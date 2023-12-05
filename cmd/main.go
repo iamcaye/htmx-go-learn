@@ -1,12 +1,13 @@
 package main
 
 import (
-	"html/template"
-	"io"
-	"log"
+    "html/template"
+    "io"
 
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+    "github.com/labstack/echo/v4"
+    "github.com/labstack/echo/v4/middleware"
+
+    "github.com/gomarkdown/markdown"
 )
 
 type Templates struct {
@@ -23,57 +24,23 @@ func newTemplate() *Templates {
     }
 }
 
-type Contact struct {
-    Name string
-    Email string
-}
-
-func newContact(name, email string) Contact {
-    return Contact{
-        Name: name,
-        Email: email,
-    }
-}
-
-type Contacts []Contact
-
-type Data struct {
-    Contacts Contacts
-}
-
-func newData() Data {
-    return Data{
-        Contacts: []Contact{
-            newContact("caye", "caye@caye.es"),
-            newContact("arnold", "arnold@arnold.es"),
-        },
-    }
-}
 
 func main () {
     e := echo.New()
     e.Use(middleware.Logger())
-
-    data := newData()
-
     e.Renderer = newTemplate()
 
+    e.Static("/css", "css")
+
     e.GET("/", func(c echo.Context) error {
-        return c.Render(200, "index", data)
+        return c.Render(200, "index", nil)
     })
 
-    e.POST("/add-contact", func(c echo.Context) error {
-        name := c.FormValue("name")
-        email := c.FormValue("email")
-
-        contact := newContact(name, email)
-        data.Contacts = append(data.Contacts, contact)
-
-        err := c.Render(200, "contact-form", data);
-        if (err != nil) {
-            log.Fatal(err)
-        }
-        return c.Render(200, "oob-contact-item", contact)
+    e.POST("/markdown", func(c echo.Context) error {
+	text := c.FormValue("markdown")
+	parsed := markdown.ToHTML([]byte(text), nil, nil)
+	return c.HTML(200, string(parsed))
+	// return c.Render(200, "markdown-content", string(parsed))
     })
 
     e.Logger.Fatal(e.Start(":3000"))

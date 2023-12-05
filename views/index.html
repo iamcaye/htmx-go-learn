@@ -1,50 +1,45 @@
 {{ block "index" . }}
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Caye's Blog</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="/css/output.css" rel="stylesheet">
         <script src="https://unpkg.com/htmx.org/dist/htmx.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <h1>Caye's Blog</h1>
-        {{ template "contact-form" . }}
-        <hr />
-        {{ template "contact-display" . }}
+        <main>
+            <h1 class="text-2xl font-semibold text-center">Hi I'm Cayetano Biehler</h1>
+            <h2 class="text-xl font-semibold text-center text-orange-500">Software Developer & Electronic System's Engineer</h2>
+            <p class="text-center">Currently interested in <strong>Web Development</strong> and getting started with <strong>Artificial Intelligence</strong>.</p>
+        </main>
+        <div class="flex flex-col justify-center items-center">
+            <div>
+                <span>
+                    <textarea  
+                        hx-post="/markdown"
+                        hx-target="#markdown-content"
+                        hx-trigger="keyup changed delay:500ms"
+                        name="markdown"
+                        class="border-solid border-black"
+                        rows="10" 
+                        cols="50" 
+                    />
+                    </textarea>
+                </span>
+            </div>
+            <div id="markdown-content" class="w-4/12 text-left bg-slate-200">
+                {{ template "markdown-content" . }}
+            </div>
+        </div>
     </body>
 </html>
 {{ end }}
 
-{{ block "contact-form" . }}
-<form hx-swap="outerHTML" hx-post="/add-contact">
-    Name: <input type="text" name="name" placeholder="Name">
-    Email: <input type="email" name="email" placeholder="Email">
-    <button type="submit">Create</button>
-</form>
+{{ block "markdown-content" . }}
+<p>
+    {{ . }}
+</p>
 {{ end }}
-
-{{ block "contact-display" . }}
-    <div id="contact-display" style="display: flex; flex-direction: column">
-        {{ range .Contacts }}
-            {{ template "contact-item" . }}
-        {{ end }}
-    </div>
-{{ end }}
-
-{{ block "contact-item" . }}
-    <div>
-        Name: <span>{{ .Name }}</span>
-        Email: <span>{{ .Email }}</span>
-    </div>
-{{ end }}
-
-{{ block "oob-contact-item" . }}
-    <div id="contact-display" hx-swap-oob="afterbegin">
-        {{ template "contact-item" . }}
-    </div>
-{{ end }}
-
-

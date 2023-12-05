@@ -1,0 +1,28 @@
+{{ block "contact-form" . }}
+<form hx-swap="outerHTML" hx-post="/add-contact">
+    Name: <input type="text" name="name" placeholder="Name">
+    Email: <input type="email" name="email" placeholder="Email">
+    <button type="submit">Create</button>
+</form>
+{{ end }}
+
+{{ block "contact-display" . }}
+    <div id="contact-display" style="display: flex; flex-direction: column">
+        {{ range .Contacts }}
+            {{ template "contact-item" . }}
+        {{ end }}
+    </div>
+{{ end }}
+
+{{ block "contact-item" . }}
+    <div>
+        Name: <span>{{ .Name }}</span>
+        Email: <span>{{ .Email }}</span>
+    </div>
+{{ end }}
+
+{{ block "oob-contact-item" . }}
+    <div id="contact-display" hx-swap-oob="afterbegin">
+        {{ template "contact-item" . }}
+    </div>
+{{ end }}
