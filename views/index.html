@@ -40,14 +40,14 @@
                 </textarea>
                 <button class="rounded bg-orange-500 text-white px-4 py-2" type="submit">Submit</button>
             </form>
-            <div id="markdown-content" class="w-4/12 p-5 text-left bg-slate-200">
+            <div id="markdown-content" class="w-4/12 p-5 text-left bg-gray-100">
                 {{ template "markdown-content" }}
             </div>
         </div>
         {{ if .Posts }}
         <div class="flex flex-col justify-center items-center gap-2">
-            <h1 class="text-2xl font-semibold text-center">Posts</h1>
-            <div id="post-list">
+            <h2 class="text-2xl font-semibold text-center">Posts</h2>
+            <div id="post-list" class="w-8/12">
                 {{ template "post-list" . }}
             </div>
         </div>
@@ -62,10 +62,13 @@
 
 {{ block "post-list" . }}
     {{ range .Posts }}
-        <div class="flex flex-col justify-center items-center gap-2">
-            <div class="p-5 text-left bg-slate-200">
-                {{ .Title }}
-            </div>
-        </div>
+        <section class="mb-5 bg-gray-100 p-3 rounded shadow-lg">
+            <header class="text-left mb-2">
+                <h3 class="border-b border-b-black">{{ .Title }}</h3>
+            </header>
+            <main class="font-light">
+                {{ .Body | markdown }}
+            </main>
+        </section>
     {{ end }}
 {{ end }}
