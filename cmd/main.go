@@ -23,14 +23,18 @@ func (t *Templates) Render(w io.Writer, name string, data interface{}, c echo.Co
 func newTemplate() *Templates {
     templs := &Templates{}
 
-    templs.templates = template.Must(template.New("").Funcs(template.FuncMap{
-	"markdown": func(html string) template.HTML {
-	    return template.HTML(markdown.ToHTML([]byte(html), nil, nil))
-	},
-	"safe": func(html string) template.HTML {
-	    return template.HTML(html)
-	},
-    }).ParseGlob("views/*.html"))
+    templs.templates = template.Must(template.New("").Funcs(
+	template.FuncMap{
+	    "markdown": func(html string) template.HTML {
+		    return template.HTML(markdown.ToHTML([]byte(html), nil, nil))
+		},
+	    "safe": func(html string) template.HTML {
+		return template.HTML(html)
+	    },
+	}).ParseGlob("views/*.html"))
+
+    templs.templates.ParseGlob("views/components/*.html")
+    fmt.Println(templs.templates.DefinedTemplates())
     return templs;
 }
 

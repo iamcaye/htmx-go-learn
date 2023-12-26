@@ -16,37 +16,15 @@
         <script>hljs.highlightAll();</script>
     </head>
     <body>
+        {{ template "navbar" . }}
         <main>
             <h1 class="text-2xl font-semibold text-center">Hi I'm Cayetano Biehler</h1>
             <h2 class="text-xl font-semibold text-center text-orange-500">Software Developer & Electronic System's Engineer</h2>
             <p class="text-center">Currently interested in <strong>Web Development</strong> and getting started with <strong>Artificial Intelligence</strong>.</p>
         </main>
-        <div class="flex flex-col justify-center items-center gap-2">
-            <form hx-post="/add-post" hx-target="#post-list" class="flex flex-col justify-center items-center gap-4">
-                <input 
-                    name="title"
-                    class="border-solid border-black border-2"
-                />
-                <textarea  
-                    hx-post="/markdown"
-                    hx-target="#markdown-content"
-                    hx-swap="innerHTML"
-                    hx-trigger="keyup changed delay:500ms"
-                    name="body"
-                    class="border-solid border-black border-2"
-                    rows="10" 
-                    cols="50" 
-                />
-                </textarea>
-                <button class="rounded bg-orange-500 text-white px-4 py-2" type="submit">Submit</button>
-            </form>
-            <div id="markdown-content" class="w-4/12 p-5 text-left bg-gray-100">
-                {{ template "markdown-content" }}
-            </div>
-        </div>
         {{ if .Posts }}
-        <div class="flex flex-col justify-center items-center gap-2">
-            <h2 class="text-2xl font-semibold text-center">Posts</h2>
+        <div class="flex flex-col justify-center items-center gap-2 mt-10">
+            <h2 class="text-2xl font-semibold text-center mb-3">Posts</h2>
             <div id="post-list" class="w-8/12">
                 {{ template "post-list" . }}
             </div>
@@ -54,6 +32,34 @@
         {{ end }}
     </body>
 </html>
+{{ end }}
+
+{{ block "post-form" . }}
+    <div class="flex flex-col justify-center items-center gap-2">
+        <form hx-post="/add-post" hx-target="#post-list" class="flex flex-col justify-center items-center gap-4">
+            <input 
+                name="title"
+                class="border-solid border-black border-2"
+                value="{{ .Title }}"
+            />
+            <textarea  
+                hx-post="/markdown"
+                hx-target="#markdown-content"
+                hx-swap="innerHTML"
+                hx-trigger="keyup changed delay:500ms"
+                value="{{ .Body }}"
+                name="body"
+                class="border-solid border-black border-2"
+                rows="10" 
+                cols="50" 
+            />
+            </textarea>
+            <button class="rounded bg-orange-500 text-white px-4 py-2" type="submit">Submit</button>
+        </form>
+        <div id="markdown-content" class="w-4/12 p-5 text-left bg-gray-100">
+            {{ template "markdown-content" }}
+        </div>
+    </div>
 {{ end }}
 
 {{ block "markdown-content" . }}
