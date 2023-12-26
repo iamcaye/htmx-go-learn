@@ -130,7 +130,7 @@ func main () {
 	}
 
 	data.Posts = append(data.Posts, post)
-	c.Render(200, "add-post-button", nil)
+	c.Render(200, "add-post-button-oob", nil)
 	return c.Render(200, "post-list", data)
     })
 

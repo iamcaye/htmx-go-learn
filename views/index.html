@@ -50,6 +50,19 @@
     </div>
 {{ end }}
 
+{{ block "add-post-button-oob" . }}
+    <div id="add-post-button" class="flex justify-center items-center gap-2 mt-10" hx-swap-oob="true">
+        <button 
+            class="rounded bg-orange-500 text-white px-4 py-2" 
+            hx-get="/edit-post"
+            hx-swap="outerHTML"
+            hx-trigger="click"
+        >
+            Add Post
+        </button>
+    </div>
+{{ end }}
+
 {{ block "post-form" . }}
     <div id="post-form" class="flex flex-col justify-center items-center gap-2">
         <form hx-post="/add-post" hx-target="#post-list" class="flex flex-col justify-center items-center gap-4">
