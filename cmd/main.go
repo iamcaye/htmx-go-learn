@@ -55,10 +55,16 @@ func newPosts() models.Posts {
 
 type Data struct {
     Posts models.Posts
+    SelectedPost models.Post
+    EditPost bool
 }
 
 func newData() Data {
-    return Data{newPosts()}
+    return Data{
+	Posts: newPosts(),
+	SelectedPost: models.Post{},
+	EditPost: true,
+    }
 }
 
 func (d *Data) AddPost(post models.Post) {
@@ -124,7 +130,16 @@ func main () {
 	}
 
 	data.Posts = append(data.Posts, post)
+	c.Render(200, "add-post-button", nil)
 	return c.Render(200, "post-list", data)
+    })
+
+    e.GET("/edit-post", func(c echo.Context) error {
+	return c.Render(200, "post-form", newPost("", ""))
+    })
+
+    e.GET("/cancel-post", func(c echo.Context) error {
+	return c.Render(200, "add-post-button", nil)
     })
 
     e.Logger.Fatal(e.Start(":3000"))

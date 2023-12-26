@@ -22,6 +22,9 @@
             <h2 class="text-xl font-semibold text-center text-orange-500">Software Developer & Electronic System's Engineer</h2>
             <p class="text-center">Currently interested in <strong>Web Development</strong> and getting started with <strong>Artificial Intelligence</strong>.</p>
         </main>
+
+        {{ template "add-post-button" . }}
+
         {{ if .Posts }}
         <div class="flex flex-col justify-center items-center gap-2 mt-10">
             <h2 class="text-2xl font-semibold text-center mb-3">Posts</h2>
@@ -34,29 +37,60 @@
 </html>
 {{ end }}
 
+{{ block "add-post-button" . }}
+    <div id="add-post-button" class="flex justify-center items-center gap-2 mt-10">
+        <button 
+            class="rounded bg-orange-500 text-white px-4 py-2" 
+            hx-get="/edit-post"
+            hx-swap="outerHTML"
+            hx-trigger="click"
+        >
+            Add Post
+        </button>
+    </div>
+{{ end }}
+
 {{ block "post-form" . }}
-    <div class="flex flex-col justify-center items-center gap-2">
+    <div id="post-form" class="flex flex-col justify-center items-center gap-2">
         <form hx-post="/add-post" hx-target="#post-list" class="flex flex-col justify-center items-center gap-4">
-            <input 
-                name="title"
-                class="border-solid border-black border-2"
-                value="{{ .Title }}"
-            />
-            <textarea  
-                hx-post="/markdown"
-                hx-target="#markdown-content"
-                hx-swap="innerHTML"
-                hx-trigger="keyup changed delay:500ms"
-                value="{{ .Body }}"
-                name="body"
-                class="border-solid border-black border-2"
-                rows="10" 
-                cols="50" 
-            />
-            </textarea>
-            <button class="rounded bg-orange-500 text-white px-4 py-2" type="submit">Submit</button>
+            
+            <div class="flex flex-col justify-center gap-2">
+                <label for="title">Title</label>
+                <input 
+                    type="text" 
+                    name="title" 
+                    class="border-solid border-black border-2"
+                    value="{{ if .Title }}{{ .Title }}{{ end }}"
+                />
+            </div>
+            <div class="flex flex-col justify-center gap-2">
+                <label for="body">Body</label>
+                <textarea  
+                    hx-post="/markdown"
+                    hx-target="#markdown-content"
+                    hx-swap="innerHTML"
+                    hx-trigger="keyup changed delay:500ms"
+                    value="{{ if .Body }}{{ .Body }}{{ end }}"
+                    name="body"
+                    class="border-solid border-black border-2"
+                    rows="10" 
+                    cols="50" 
+                ></textarea>
+            </div>
+            <div class="flex justify-center items-center gap-2">
+                <button class="rounded bg-orange-500 text-white px-4 py-2" type="submit">Submit</button>
+                <button 
+                    class="rounded bg-gray-500 text-white px-4 py-2" 
+                    hx-get="/cancel-post"
+                    hx-target="#add-post-button"
+                    hx-trigger="click"
+                    hx-swap="outerHTML"
+                >
+                    Cancel
+                </button>
+            </div>
         </form>
-        <div id="markdown-content" class="w-4/12 p-5 text-left bg-gray-100">
+        <div id="markdown-content" class="p-5 w-full text-left bg-gray-100">
             {{ template "markdown-content" }}
         </div>
     </div>

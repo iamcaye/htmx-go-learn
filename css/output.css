@@ -557,16 +557,12 @@ video {
   margin-bottom:0.5rem;
 }
 
-.mb-5 {
-  margin-bottom:1.25rem;
-}
-
 .mb-3 {
   margin-bottom:0.75rem;
 }
 
-.mt-5 {
-  margin-top:1.25rem;
+.mb-5 {
+  margin-bottom:1.25rem;
 }
 
 .mt-10 {
@@ -581,24 +577,12 @@ video {
   display:flex;
 }
 
-.h-10 {
-  height:2.5rem;
-}
-
-.w-4\/12 {
-  width:33.333333%;
-}
-
 .w-8\/12 {
   width:66.666667%;
 }
 
 .w-full {
   width:100%;
-}
-
-.w-10 {
-  width:2.5rem;
 }
 
 .flex-col {
@@ -629,8 +613,8 @@ video {
   border-radius:0.25rem;
 }
 
-.rounded-full {
-  border-radius:9999px;
+.border {
+  border-width:1px;
 }
 
 .border-2 {
@@ -660,9 +644,9 @@ video {
   background-color:rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-.bg-orange-50 {
+.bg-orange-100 {
   --tw-bg-opacity:1;
-  background-color:rgb(255 247 237 / var(--tw-bg-opacity));
+  background-color:rgb(255 237 213 / var(--tw-bg-opacity));
 }
 
 .bg-orange-500 {
@@ -670,30 +654,21 @@ video {
   background-color:rgb(249 115 22 / var(--tw-bg-opacity));
 }
 
-.bg-orange-100 {
+.bg-gray-500 {
   --tw-bg-opacity:1;
-  background-color:rgb(255 237 213 / var(--tw-bg-opacity));
+  background-color:rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
-.bg-orange-200 {
-  --tw-bg-opacity:1;
-  background-color:rgb(254 215 170 / var(--tw-bg-opacity));
+.p-2 {
+  padding:0.5rem;
 }
 
 .p-3 {
   padding:0.75rem;
 }
 
-.p-4 {
-  padding:1rem;
-}
-
 .p-5 {
   padding:1.25rem;
-}
-
-.p-2 {
-  padding:0.5rem;
 }
 
 .px-4 {
@@ -752,36 +727,10 @@ video {
   box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow-sm {
-  --tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .shadow-md {
   --tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-orange-50 {
-  --tw-shadow-color:#fff7ed;
-  --tw-shadow:var(--tw-shadow-colored);
-}
-
-.shadow-orange-100 {
-  --tw-shadow-color:#ffedd5;
-  --tw-shadow:var(--tw-shadow-colored);
-}
-
-.shadow-orange-300 {
-  --tw-shadow-color:#fdba74;
-  --tw-shadow:var(--tw-shadow-colored);
-}
-
-.shadow-black {
-  --tw-shadow-color:#000;
-  --tw-shadow:var(--tw-shadow-colored);
 }
 
 .shadow-orange-200 {
