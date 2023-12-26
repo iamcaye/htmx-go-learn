@@ -65,14 +65,13 @@
 
 {{ block "post-form" . }}
     <div id="post-form" class="flex flex-col justify-center items-center gap-2">
-        <form hx-post="/add-post" hx-target="#post-list" class="flex flex-col justify-center items-center gap-4">
-            
-            <div class="flex flex-col justify-center gap-2">
+        <form hx-post="/add-post" class="flex flex-col justify-center items-center gap-2 mb-3" hx-swap="beforeend scroll:bottom">
+            <div class="flex flex-col justify-center gap-2 w-full">
                 <label for="title">Title</label>
                 <input 
                     type="text" 
                     name="title" 
-                    class="border-solid border-black border-2"
+                    class="border-solid border-black border-2 w-full"
                     value="{{ if .Title }}{{ .Title }}{{ end }}"
                 />
             </div>
@@ -115,7 +114,24 @@
 
 {{ block "post-list" . }}
     {{ range .Posts }}
-        <section class="mb-5 bg-gray-100 p-3 rounded shadow-lg">
+        {{ template "post-item" . }}
+    {{ end }}
+{{ end }}
+
+{{ block "post-item" . }}
+    <section class="mb-5 bg-gray-100 p-3 rounded shadow-lg">
+        <header class="text-left mb-2">
+            <h3 class="border-b border-b-black">{{ .Title }}</h3>
+        </header>
+        <main class="font-light">
+            {{ .Body | markdown }}
+        </main>
+    </section>
+{{ end }}
+
+{{ block "post-item-oob" . }}
+    <div hx-swap-oob="afterbegin" id="post-list">
+        <section class="mb-5 bg-gray-100 p-3 rounded shadow-lg transition-opacity delay-150 duration-500">
             <header class="text-left mb-2">
                 <h3 class="border-b border-b-black">{{ .Title }}</h3>
             </header>
@@ -123,5 +139,5 @@
                 {{ .Body | markdown }}
             </main>
         </section>
-    {{ end }}
+    </div>
 {{ end }}

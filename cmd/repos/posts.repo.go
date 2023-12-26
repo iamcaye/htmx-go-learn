@@ -34,6 +34,8 @@ func getCollection(client mongo.Client, collectionName string) *mongo.Collection
 
 func GetPosts(client mongo.Client) (models.Posts, error) {
 	collection := getCollection(client, "posts")
+	// order by id desc
+	opts := options.Find().SetSort(bson.D{{"_id", -1}})
 	res, err := collection.Find(context.Background(), bson.D{})
 	if err != nil {
 		return nil, err

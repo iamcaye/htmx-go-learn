@@ -131,7 +131,7 @@ func main () {
 
 	data.Posts = append(data.Posts, post)
 	c.Render(200, "add-post-button-oob", nil)
-	return c.Render(200, "post-list", data)
+	return c.Render(200, "post-item-oob", post)
     })
 
     e.GET("/edit-post", func(c echo.Context) error {
